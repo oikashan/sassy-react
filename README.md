@@ -1,3 +1,3 @@
 # @sassy-js/react
 
-Javascript just got some sass :lipstick:
+React just got some sass :lipstick:
