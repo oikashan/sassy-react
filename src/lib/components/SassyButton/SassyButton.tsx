@@ -1,42 +1,73 @@
 import * as React from 'react';
 
-export type IconButtonProps = {
-  title?: string;
-  hasTooltip?: boolean;
-  children: React.ReactElement;
-  tooltipPosition?: string;
-} & JSX.IntrinsicElements['button'];
+import { SassyRef, SassyTypes } from '../../../types/types';
+
+import './SassyButton.css';
+
+export type SassyButtonProps<T extends React.ElementType> = {
+  /**
+   * Optional icon to display above the text.
+   */
+  iconTop?: React.ReactElement;
+
+  /**
+   * Optional icon to display next to the text.
+   */
+  iconEnd?: React.ReactElement;
+
+  /**
+   * Optional icon to display below the text.
+   */
+  iconBottom?: React.ReactElement;
+
+  /**
+   * Optional icon to display before the text.
+   */
+  iconStart?: React.ReactElement;
+} & SassyTypes<T>;
 
 /**
- * Generic icon button.
+ * A headless button with sass. Punches a pack of all kinds of glamour you may
+ * need. Tooltips? We got microtip, a CSS-only smol utility for gorgeous
+ * tooltips. Icons? We got a slot for you to insert those lil' bums in all 4
+ * directions. Don't forget to import microtip's CSS; Just do an `import 'microtip/microtip.css'`
+ *
+ * @see https://github.com/ghosh/microtip#installation Microtip
  *
  * @returns {JSX.Element}
  *
  * @author kashan-ahmad
+ *
  * @version 0.0.1
  */
-export default function IconButton({
-  title,
-  children,
-  className = '',
-  hasTooltip = false,
-  tooltipPosition = 'top',
-  ...props
-}: IconButtonProps): JSX.Element {
-  const finalProps: Record<string, any> = props;
+const SassyButton = React.forwardRef(
+  <T extends React.ElementType = 'button'>(
+    {
+      as,
+      iconTop,
+      iconEnd,
+      iconBottom,
+      iconStart,
+      children,
+      className = '',
+      ...props
+    }: SassyButtonProps<T>,
+    ref?: SassyRef<T>
+  ): JSX.Element => {
+    const Component = as || 'button';
 
-  if (hasTooltip) {
-    finalProps['role'] = 'tooltip';
-    finalProps['aria-label'] = title;
-    finalProps['data-microtip-position'] = tooltipPosition;
+    return (
+      <Component {...props} ref={ref} className={`sassy-button ${className}`}>
+        {iconTop && <span className="sassy-button__row">{iconTop}</span>}
+        <span className="sassy-button__row">
+          {iconStart && <span>{iconStart}</span>}
+          {children}
+          {iconEnd && <span>{iconEnd}</span>}
+        </span>
+        {iconBottom && <span className="sassy-button__row">{iconBottom}</span>}
+      </Component>
+    );
   }
+);
 
-  return (
-    <button
-      {...finalProps}
-      className={`py-0 px-1 border-1 rounded bg-white text-secondary ${className}`}
-    >
-      {children}
-    </button>
-  );
-}
+export default SassyButton;

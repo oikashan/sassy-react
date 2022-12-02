@@ -8,13 +8,14 @@ export type SassyImageProps = {
 } & JSX.IntrinsicElements['img'];
 
 /**
- * An image that has sass. In other words, it has a fallback image.
+ * An image with sass. In other words, it has a fallback image.
  * Not to mention that the fallback works even if the provided source fails to
  * load.
  *
  * @returns {JSX.Element}
  *
  * @author kashan-ahmad
+ *
  * @version 0.0.1
  */
 export default function SassyImage({

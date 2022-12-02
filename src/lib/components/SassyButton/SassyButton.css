@@ -1,0 +1,23 @@
+:root {
+  --sassy-button-gap: 0.5rem;
+}
+
+.sassy-button {
+  /* 👇 Styles */
+  cursor: pointer;
+  padding: var(--sassy-button-gap);
+
+  /* 👇 Layout. */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--sassy-button-gap);
+}
+
+.sassy-button .sassy-button__row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sassy-button-gap);
+}

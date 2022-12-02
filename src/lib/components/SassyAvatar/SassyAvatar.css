@@ -1,0 +1,29 @@
+.sassy-avatar {
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.sassy-avatar-xs {
+  width: 2rem;
+  height: 2rem;
+}
+
+.sassy-avatar-sm {
+  width: 3rem;
+  height: 3rem;
+}
+
+.sassy-avatar-md {
+  width: 4rem;
+  height: 4rem;
+}
+
+.sassy-avatar-lg {
+  width: 5rem;
+  height: 5rem;
+}
+
+.sassy-avatar-xl {
+  width: 10rem;
+  height: 10rem;
+}

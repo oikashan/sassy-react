@@ -1,9 +1,7 @@
 module.exports = {
-  stories: [
-    '../playground/**/*.stories.mdx',
-    '../playground/**/*.stories.@(js|jsx|ts|tsx)',
-  ],
+  stories: ['../playground/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
+    '@storybook/addon-a11y',
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
