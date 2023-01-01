@@ -28,9 +28,11 @@ export type SassyButtonProps<T extends React.ElementType> = {
 
 /**
  * A headless button with sass. Punches a pack of all kinds of glamour you may
- * need. Tooltips? We got microtip, a CSS-only smol utility for gorgeous
- * tooltips. Icons? We got a slot for you to insert those lil' bums in all 4
- * directions. Don't forget to import microtip's CSS; Just do an `import 'microtip/microtip.css'`
+ * need. Icons? We got a slot for you to insert those lil' bums in all 4
+ * directions. Notice the gap between the icons and the padding and you're not
+ * satisfied? You can modify the two relevant CSS properties to make changes:
+ * - --sassy-button-gap
+ * - --sassy-button-padding
  *
  * @see https://github.com/ghosh/microtip#installation Microtip
  *

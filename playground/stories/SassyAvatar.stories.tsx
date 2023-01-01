@@ -20,18 +20,26 @@ export const Default = Template.bind({});
 Default.args = {
   size: 'md',
   color: '#ff339e',
-  src: 'https://picsum.photos/200',
-  fallbackImgSrc: 'https://picsum.photos/200',
+  src: '/sassy-react-logo.png',
+  fallbackImgSrc: '/fallback.png',
 };
 
+/**
+ * Notice the src attribute. Surely no such image exists and hence our fallback
+ * jumps in to save the day!
+ */
 export const InvalidSource = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 InvalidSource.args = {
   size: 'md',
-  src: 'https://',
-  fallbackImgSrc: 'https://picsum.photos/200',
+  src: 'https://not-sassy.png',
+  fallbackImgSrc: '/fallback.png',
 };
 
+/**
+ * If you don't provide the `src` and the `fallbackImgSrc` attribute, this cool
+ * little dude will show up in any color you want.
+ */
 export const AllSourcesInvalid = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 AllSourcesInvalid.args = {

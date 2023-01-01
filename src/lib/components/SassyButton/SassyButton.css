@@ -1,11 +1,12 @@
 :root {
   --sassy-button-gap: 0.5rem;
+  --sassy-button-padding: 0.5rem;
 }
 
 .sassy-button {
   /* 👇 Styles */
   cursor: pointer;
-  padding: var(--sassy-button-gap);
+  padding: var(--sassy-button-padding);
 
   /* 👇 Layout. */
   display: flex;

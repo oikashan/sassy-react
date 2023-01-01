@@ -1,6 +1,16 @@
 .sassy-avatar {
   object-fit: cover;
   border-radius: 50%;
+  position: relative;
+}
+
+.sassy-avatar .sassy-text {
+  color: white;
+  mix-blend-mode: difference;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .sassy-avatar-xs {
@@ -8,9 +18,17 @@
   height: 2rem;
 }
 
+.sassy-avatar-xs .sassy-text {
+  font-size: 0.5rem;
+}
+
 .sassy-avatar-sm {
   width: 3rem;
   height: 3rem;
+}
+
+.sassy-avatar-sm .sassy-text {
+  font-size: 1rem;
 }
 
 .sassy-avatar-md {
@@ -18,12 +36,24 @@
   height: 4rem;
 }
 
+.sassy-avatar-md .sassy-text {
+  font-size: 1.5rem;
+}
+
 .sassy-avatar-lg {
   width: 5rem;
   height: 5rem;
 }
 
+.sassy-avatar-lg .sassy-text {
+  font-size: 2rem;
+}
+
 .sassy-avatar-xl {
   width: 10rem;
   height: 10rem;
+}
+
+.sassy-avatar-xl .sassy-text {
+  font-size: 4rem;
 }

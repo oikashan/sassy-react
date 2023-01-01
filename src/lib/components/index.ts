@@ -5,3 +5,4 @@ export { default as SampleAvatar } from './SampleAvatar';
 export { default as SassyImage } from './SassyImage/SassyImage';
 export { default as SassyAvatar } from './SassyAvatar/SassyAvatar';
 export { default as SassyButton } from './SassyButton/SassyButton';
+export { default as SassyNamedAvatar } from './SassyNamedAvatar/SassyNamedAvatar';
