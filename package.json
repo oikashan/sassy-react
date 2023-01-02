@@ -5,9 +5,12 @@
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "https://github.com/kashan-ahmad/sassy-react",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kashan-ahmad/sassy-react.git"
+  },
   "license": "MIT",
-  "keywords": [],
+  "keywords": ["react", "component-library", "headless", "javascript"],
   "scripts": {
     "build": "run-p build:*",
     "build:main": "tsc -p tsconfig.json",
@@ -41,7 +44,8 @@
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
     "start": "vite",
     "build-storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006"
+    "storybook": "start-storybook -p 6006",
+    "chromatic": "npx chromatic --project-token=29ee5ceae6bb"
   },
   "engines": {
     "node": ">=10"
@@ -71,6 +75,7 @@
     "@typescript-eslint/parser": "^4.0.1",
     "@vitejs/plugin-react": "^2.2.0",
     "babel-loader": "^8.3.0",
+    "chromatic": "^6.14.0",
     "codecov": "^3.5.0",
     "cspell": "^4.1.0",
     "cz-conventional-changelog": "^3.3.0",
@@ -115,5 +120,11 @@
     "exclude": [
       "**/*.spec.*"
     ]
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/kashan-ahmad/sassy-react/issues"
+  },
+  "readme": "ERROR: No README data found!",
+  "homepage": "https://github.com/kashan-ahmad/sassy-react#readme",
+  "_id": "@sassy-js/react@0.0.2"
 }
