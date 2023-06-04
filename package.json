@@ -10,7 +10,12 @@
     "url": "git+https://github.com/kashan-ahmad/sassy-react.git"
   },
   "license": "MIT",
-  "keywords": ["react", "component-library", "headless", "javascript"],
+  "keywords": [
+    "react",
+    "component-library",
+    "headless",
+    "javascript"
+  ],
   "scripts": {
     "build": "run-p build:*",
     "build:main": "tsc -p tsconfig.json",
@@ -42,10 +47,14 @@
     "version": "standard-version",
     "reset-hard": "git clean -dfx && git reset --hard && yarn",
     "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
-    "start": "vite",
+    "dev": "vite",
     "build-storybook": "build-storybook",
     "storybook": "start-storybook -p 6006",
-    "chromatic": "npx chromatic --project-token=29ee5ceae6bb"
+    "chromatic": "npx chromatic --project-token=29ee5ceae6bb",
+    "preview": "vite preview",
+    "release:prepare": "npx changeset",
+    "release": "npx changeset version",
+    "clean": "rm -rf dist && rm -rf node_modules"
   },
   "engines": {
     "node": ">=10"
@@ -58,6 +67,9 @@
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@sassy-js/fire": "workspace:*",
+    "@sassy-js/tsconfig": "workspace:*",
+    "@sassy-js/utils": "workspace:*",
     "@storybook/addon-a11y": "^6.5.14",
     "@storybook/addon-actions": "^6.5.14",
     "@storybook/addon-essentials": "^6.5.14",
