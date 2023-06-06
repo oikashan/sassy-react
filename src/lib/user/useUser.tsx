@@ -1,4 +1,10 @@
-import { createContext, useCallback, useContext, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { RequestState } from '@sassy-js/utils';
 import {
   User,
@@ -6,6 +12,7 @@ import {
   LogoutProps,
   loginWithGoogle,
   logout as logoutFromGoogle,
+  observeUser,
 } from '@sassy-js/fire';
 
 export type UserContextProps = {
@@ -22,6 +29,19 @@ export const UserContext = createContext<UserContextProps>(
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User>();
   const [userState, setUserState] = useState<RequestState>('idle');
+
+  useEffect(() => {
+    observeUser({
+      onLogin: (user) => {
+        setUser(user);
+        setUserState('success');
+      },
+      onLogout: () => {
+        setUser(undefined);
+        setUserState('idle');
+      },
+    });
+  }, []);
 
   return (
     <UserContext.Provider
