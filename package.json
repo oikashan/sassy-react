@@ -1,6 +1,6 @@
 {
   "name": "@sassy-js/react",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "React just got some sass :lipstick:",
   "main": "src/index.ts",
   "repository": {
@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@bitauth/libauth": "^1.17.1",
+    "history": "^5.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
