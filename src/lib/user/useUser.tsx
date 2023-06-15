@@ -5,7 +5,7 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { RequestState } from '@sassy-js/utils';
+import { HttpServiceError, RequestState } from '@sassy-js/utils';
 import {
   User,
   LoginProps,
@@ -13,6 +13,8 @@ import {
   loginWithGoogle,
   logout as logoutFromGoogle,
   observeUser,
+  loginWithEmail,
+  loginAnonymously,
 } from '@sassy-js/fire';
 
 export type UserContextProps = {
@@ -26,19 +28,28 @@ export const UserContext = createContext<UserContextProps>(
   {} as UserContextProps
 );
 
-export function UserProvider({ children }: { children: React.ReactNode }) {
+export function UserProvider({
+  loader,
+  children,
+}: {
+  loader: React.ReactNode;
+  children: React.ReactNode;
+}) {
   const [user, setUser] = useState<User>();
-  const [userState, setUserState] = useState<RequestState>('idle');
+  const [isAuthenticating, setIsAuthenticating] = useState(true);
+  const [userState, setUserState] = useState<RequestState>('loading');
 
   useEffect(() => {
     observeUser({
       onLogin: (user) => {
         setUser(user);
         setUserState('success');
+        setIsAuthenticating(false);
       },
       onLogout: () => {
         setUser(undefined);
         setUserState('idle');
+        setIsAuthenticating(false);
       },
     });
   }, []);
@@ -52,7 +63,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
         setUserState,
       }}
     >
-      {children}
+      {isAuthenticating ? loader : children}
     </UserContext.Provider>
   );
 }
@@ -76,19 +87,52 @@ export function useSetUserState() {
 export function useUser() {
   const { user, setUser, userState, setUserState } = useContext(UserContext);
 
-  const login = useCallback(({ onSuccess, onFailure }: LoginProps) => {
-    loginWithGoogle({
-      onSuccess: (user) => {
+  const login = useCallback(
+    ({
+      email,
+      password,
+      onSuccess,
+      onFailure,
+      provider = 'google',
+    }: LoginProps) => {
+      setUserState('loading');
+
+      const handleSuccess = (user: User) => {
         setUser(user);
         setUserState('success');
         onSuccess?.(user);
-      },
-      onFailure: (error) => {
+      };
+
+      const handleFailure = (error: HttpServiceError) => {
         setUserState('error');
         onFailure?.(error);
-      },
-    });
-  }, []);
+      };
+
+      if (provider === 'google') {
+        loginWithGoogle({
+          onSuccess: handleSuccess,
+          onFailure: handleFailure,
+        });
+      }
+
+      if (provider === 'email' && email && password) {
+        loginWithEmail({
+          email,
+          password,
+          onSuccess: handleSuccess,
+          onFailure: handleFailure,
+        });
+      }
+
+      if (provider === 'anonymous') {
+        loginAnonymously({
+          onSuccess: handleSuccess,
+          onFailure: handleFailure,
+        });
+      }
+    },
+    []
+  );
 
   const logout = useCallback(({ onSuccess, onFailure }: LogoutProps) => {
     logoutFromGoogle({
