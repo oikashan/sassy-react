@@ -13,6 +13,7 @@ export const useSearchParamsValue = (): SearchParams => {
     const searchParams = new URLSearchParams(location.search);
     const params: SearchParams = {};
 
+    // Make key/value pairs from search params.
     for (const [key, value] of searchParams.entries()) {
       params[key] = value;
     }

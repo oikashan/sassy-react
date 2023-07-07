@@ -138,7 +138,7 @@ export function useUser() {
     logoutFromGoogle({
       onSuccess: () => {
         setUser(undefined);
-        setUserState('success');
+        setUserState('idle');
         onSuccess?.(undefined);
       },
       onFailure: (error) => {
