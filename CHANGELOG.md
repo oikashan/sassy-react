@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.0
+
+### Minor Changes
+
+- e38e442: Updated react docs and added logout hook to wahm
+
 ## 1.1.0
 
 ### Minor Changes
