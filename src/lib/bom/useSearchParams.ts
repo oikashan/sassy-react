@@ -7,9 +7,11 @@ interface SearchParams {
 
 export const useSearchParamsValue = (): SearchParams => {
   const { location } = window;
-  const [searchParams, setSearchParams] = useState<SearchParams>({});
+  const [searchParams, setSearchParams] = useState<SearchParams>(
+    getSearchParams()
+  );
 
-  useEffect(() => {
+  function getSearchParams() {
     const searchParams = new URLSearchParams(location.search);
     const params: SearchParams = {};
 
@@ -18,7 +20,11 @@ export const useSearchParamsValue = (): SearchParams => {
       params[key] = value;
     }
 
-    setSearchParams(params);
+    return params;
+  }
+
+  useEffect(() => {
+    setSearchParams(getSearchParams());
   }, [location.search]);
 
   return searchParams;
