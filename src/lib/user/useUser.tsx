@@ -10,11 +10,13 @@ import {
   User,
   LoginProps,
   LogoutProps,
+  RegisterProps,
   loginWithGoogle,
-  logout as logoutFromGoogle,
+  logout as logoutEverywhere,
   observeUser,
   loginWithEmail,
   loginAnonymously,
+  registerWithEmail,
 } from '@sassy-js/fire';
 
 export type UserContextProps = {
@@ -87,6 +89,22 @@ export function useSetUserState() {
 export function useUser() {
   const { user, setUser, userState, setUserState } = useContext(UserContext);
 
+  // Callbacks.
+  const handleSuccess = (user: User, onSuccess: LoginProps['onSuccess']) => {
+    setUser(user);
+    setUserState('success');
+    onSuccess?.(user);
+  };
+
+  const handleFailure = (
+    error: HttpServiceError,
+    onFailure: LoginProps['onFailure']
+  ) => {
+    setUserState('error');
+    onFailure?.(error);
+  };
+
+  // Methods.
   const login = useCallback(
     ({
       email,
@@ -97,21 +115,10 @@ export function useUser() {
     }: LoginProps) => {
       setUserState('loading');
 
-      const handleSuccess = (user: User) => {
-        setUser(user);
-        setUserState('success');
-        onSuccess?.(user);
-      };
-
-      const handleFailure = (error: HttpServiceError) => {
-        setUserState('error');
-        onFailure?.(error);
-      };
-
       if (provider === 'google') {
         loginWithGoogle({
-          onSuccess: handleSuccess,
-          onFailure: handleFailure,
+          onSuccess: (user) => handleSuccess(user, onSuccess),
+          onFailure: (error) => handleFailure(error, onFailure),
         });
       }
 
@@ -119,15 +126,45 @@ export function useUser() {
         loginWithEmail({
           email,
           password,
-          onSuccess: handleSuccess,
-          onFailure: handleFailure,
+          onSuccess: (user) => handleSuccess(user, onSuccess),
+          onFailure: (error) => handleFailure(error, onFailure),
         });
       }
 
       if (provider === 'anonymous') {
         loginAnonymously({
-          onSuccess: handleSuccess,
-          onFailure: handleFailure,
+          onSuccess: (user) => handleSuccess(user, onSuccess),
+          onFailure: (error) => handleFailure(error, onFailure),
+        });
+      }
+    },
+    []
+  );
+
+  const register = useCallback(
+    ({
+      email,
+      password,
+      onSuccess,
+      onFailure,
+      provider = 'google',
+    }: RegisterProps) => {
+      setUserState('loading');
+
+      if (provider === 'google') {
+        // Login with google is the same as register with google.
+        loginWithGoogle({
+          onSuccess: (user) => handleSuccess(user, onSuccess),
+          onFailure: (error) => handleFailure(error, onFailure),
+        });
+      }
+
+      if (provider === 'email' && email && password) {
+        registerWithEmail({
+          email,
+          password,
+          onSuccess: (user) => handleSuccess(user, onSuccess),
+          onFailure: (error) => handleFailure(error, onFailure),
         });
       }
     },
@@ -135,10 +172,10 @@ export function useUser() {
   );
 
   const logout = useCallback(({ onSuccess, onFailure }: LogoutProps) => {
-    logoutFromGoogle({
+    logoutEverywhere({
       onSuccess: () => {
         setUser(undefined);
-        setUserState('success');
+        setUserState('idle');
         onSuccess?.(undefined);
       },
       onFailure: (error) => {
@@ -150,6 +187,7 @@ export function useUser() {
 
   return {
     login,
+    register,
     logout,
     user,
     userState,
