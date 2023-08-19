@@ -1,3 +1,4 @@
 {
-  "extends": ["plugin:@sassy-js/eslint-config"]
+  "plugins": ["storybook"],
+  "extends": ["@sassy-js/eslint-config", "plugin:storybook/recommended"]
 }
