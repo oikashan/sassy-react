@@ -1,8 +1,10 @@
 {
   "name": "@sassy-js/react",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "React just got some sass :lipstick:",
   "main": "src/index.ts",
+  "homepage": "https://github.com/kashan-ahmad/sassy-react#readme",
+  "bugs": "https://github.com/kashan-ahmad/sassy-react/issues",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kashan-ahmad/sassy-react.git"
@@ -10,62 +12,26 @@
   "license": "MIT",
   "keywords": [
     "react",
-    "component-library",
     "headless",
     "javascript"
   ],
   "scripts": {
-    "build": "run-p build:*",
-    "build:main": "tsc -p tsconfig.json",
-    "build:module": "tsc -p tsconfig.module.json",
-    "fix": "run-s fix:*",
-    "fix:lint": "eslint src --ext .ts --fix",
-    "fix:prettier": "prettier \"src/**/*.{ts,tsx}\" --write",
-    "test": "run-s build test:*",
-    "test:unit": "jest --coverage",
-    "test:lint": "eslint src --ext .ts",
-    "test:prettier": "prettier \"src/**/*.{ts,tsx}\" --list-different",
-    "test:spelling": "cspell \"{README.md,.github/*.md,src/**/*.ts,src/**/*.tsx}\"",
-    "check-cli": "run-s test diff-integration-tests check-integration-tests",
-    "check-integration-tests": "run-s check-integration-test:*",
-    "diff-integration-tests": "mkdir -p diff && rm -rf diff/test && cp -r test diff/test && rm -rf diff/test/test-*/.git && cd diff && git init --quiet && git add -A && git commit --quiet --no-verify --allow-empty -m 'WIP' && echo '\\n\\nCommitted most recent integration test output in the \"diff\" directory. Review the changes with \"cd diff && git diff HEAD\" or your preferred git diff viewer.'",
-    "watch:build": "tsc -p tsconfig.json -w",
-    "watch:test": "test:unit --watch",
-    "cov": "run-s build test:unit cov:html cov:lcov && open-cli coverage/index.html",
-    "cov:html": "nyc report --reporter=html",
-    "cov:lcov": "nyc report --reporter=lcov",
-    "cov:send": "run-s cov:lcov && codecov",
-    "cov:check": "nyc report && nyc check-coverage --lines 100 --functions 100 --branches 100",
-    "doc": "run-s doc:html && open-cli build/docs/index.html",
-    "doc:html": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --out build/docs",
-    "doc:json": "typedoc src/ --exclude **/*.spec.ts --target ES6 --mode file --json build/docs/typedoc.json",
-    "doc:publish": "gh-pages -d build/docs",
-    "doc:publish-ci": "gh-pages -m \"[ci skip] Updates\" -d build/docs",
-    "commit": "cz",
-    "version": "standard-version",
-    "reset-hard": "git clean -dfx && git reset --hard && yarn",
-    "prepare-release": "run-s reset-hard test cov:check doc:html version doc:publish",
     "dev": "vite",
-    "build-storybook": "build-storybook",
-    "storybook": "start-storybook -p 6006",
-    "chromatic": "npx chromatic --project-token=29ee5ceae6bb",
-    "preview": "vite preview",
-    "release:prepare": "npx changeset",
-    "release": "npx changeset version",
-    "clean": "rm -rf dist && rm -rf node_modules"
-  },
-  "engines": {
-    "node": ">=10"
+    "dev:stories": "start-storybook -p 6006",
+    "build": "tsc",
+    "build:stories": "build-storybook",
+    "commit": "git add .",
+    "push": "git push --follow-tags",
+    "push:stories": "npx chromatic --project-token=29ee5ceae6bb",
+    "clean": "rm -rf dist && rm -rf node_modules && pnpm i"
   },
   "dependencies": {
-    "@bitauth/libauth": "^1.17.1",
     "history": "^5.3.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
-    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@sassy-js/fire": "workspace:*",
     "@sassy-js/tsconfig": "workspace:*",
     "@sassy-js/utils": "workspace:*",
@@ -76,66 +42,18 @@
     "@storybook/addon-links": "^6.5.14",
     "@storybook/builder-vite": "^0.2.5",
     "@storybook/react": "^6.5.14",
-    "@storybook/testing-library": "^0.0.13",
-    "@testing-library/react": "^13.4.0",
-    "@types/jest": "^29.2.5",
     "@types/node": "^18.11.9",
     "@types/react": "^18.0.24",
     "@types/react-dom": "^18.0.8",
-    "@typescript-eslint/eslint-plugin": "^4.0.1",
-    "@typescript-eslint/parser": "^4.0.1",
     "@vitejs/plugin-react": "^2.2.0",
     "babel-loader": "^8.3.0",
     "chromatic": "^6.14.0",
-    "codecov": "^3.5.0",
-    "cspell": "^4.1.0",
-    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^7.8.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-eslint-comments": "^3.2.0",
-    "eslint-plugin-functional": "^3.0.2",
-    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-storybook": "^0.6.8",
     "gh-pages": "^3.1.0",
-    "jest": "^29.3.1",
-    "npm-run-all": "^4.1.5",
-    "nyc": "^15.1.0",
-    "open-cli": "^6.0.1",
     "prettier": "^2.1.1",
-    "react-test-renderer": "^18.2.0",
-    "standard-version": "^9.0.0",
     "ts-node": "^9.0.0",
-    "typedoc": "^0.19.0",
-    "typescript": "^4.0.2",
+    "typescript": "^5.0.2",
     "vite": "^3.2.3"
-  },
-  "files": [
-    "build/main",
-    "build/module",
-    "!**/*.spec.*",
-    "!**/*.json",
-    "CHANGELOG.md",
-    "LICENSE",
-    "README.md"
-  ],
-  "config": {
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "prettier": {
-    "singleQuote": true
-  },
-  "nyc": {
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "exclude": [
-      "**/*.spec.*"
-    ]
-  },
-  "bugs": {
-    "url": "https://github.com/kashan-ahmad/sassy-react/issues"
-  },
-  "readme": "ERROR: No README data found!",
-  "homepage": "https://github.com/kashan-ahmad/sassy-react#readme",
-  "_id": "@sassy-js/react@0.0.2"
+  }
 }
