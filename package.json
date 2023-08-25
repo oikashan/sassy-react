@@ -20,7 +20,7 @@
     "dev:stories": "start-storybook -p 6006",
     "build": "tsc",
     "build:stories": "build-storybook",
-    "commit": "git add . && git commit -m \"build: release prepared\"",
+    "commit": "git add . && if [[ $(git status --porcelain) ]]; then git commit -m 'build: release prepared'; else echo 'No changes to commit'; fi",
     "push": "git push --follow-tags",
     "push:stories": "npx chromatic --project-token=29ee5ceae6bb",
     "clean": "rm -rf dist && rm -rf node_modules && pnpm i"
