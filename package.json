@@ -20,8 +20,8 @@
     "dev:stories": "start-storybook -p 6006",
     "build": "tsc",
     "build:stories": "build-storybook",
-    "commit": "git add .",
-    "push": "git push --follow-tags",
+    "commit": "git add . && git commit -m \"build: release prepared\"",
+    "push": "git push && git push --follow-tags",
     "push:stories": "npx chromatic --project-token=29ee5ceae6bb",
     "clean": "rm -rf dist && rm -rf node_modules && pnpm i"
   },
