@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.1
+
+### Patch Changes
+
+- d91fad2: feat: added http module with a useHttpEffect
+
 ## 1.4.0
 
 ### Minor Changes

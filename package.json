@@ -1,6 +1,6 @@
 {
   "name": "@sassy-js/react",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "React just got some sass :lipstick:",
   "main": "src/index.ts",
   "homepage": "https://github.com/kashan-ahmad/sassy-react#readme",
